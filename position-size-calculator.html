@@ -84,20 +84,9 @@
         }
         .results-box .label {
             display: inline-block;
-            min-width: 90px;
-        }
-        .results-box .risk-label {
-            display: inline-block;
-            min-width: 100px;
-        }
-        .results-box .reward-label {
-            display: inline-block;
             min-width: 110px;
         }
         .results-box .value {
-            color: #2b6cb0;
-        }
-        .results-box .value-bold {
             color: #2b6cb0;
             font-weight: 600;
         }
@@ -108,11 +97,11 @@
         .footer-text {
             color: #718096;
             font-size: 0.65rem;
-            margin-top: 2px;
+            margin-top: 5px;
             line-height: 1.3;
         }
         .footer-text:first-of-type {
-            margin-top: 6px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -159,15 +148,15 @@
             <p><span class="label">Symbol:</span> <span id="resultSymbol" class="value"></span></p>
             <p><span class="label">Stop Loss:</span> <span id="resultStopLoss" class="value"></span> ticks</p>
             <p><span class="label">Target Risk:</span> $<span id="resultTargetRisk" class="value"></span></p>
-            <p><span class="label">Contract Size:</span> <span id="resultContracts" class="value-bold"></span> / Added Size: <span id="resultAddedContracts" class="added-value"></span></p>
+            <p><span class="label">Contract Size:</span> <span id="resultContracts" class="value"></span> / Added Size: <span id="resultAddedContracts" class="added-value"></span></p>
             <h3>Risk Profile</h3>
-            <p><span class="risk-label">Actual Risk:</span> $<span id="resultActualRisk" class="value-bold"></span> / <span id="resultAddedRisk" class="added-value"></span></p>
-            <p><span class="risk-label">Risk Deviation:</span> <span id="resultDeviation" class="value"></span>% / <span id="resultAddedDeviation" class="added-value"></span>%</p>
+            <p><span class="label">Actual Risk:</span> $<span id="resultActualRisk" class="value"></span> / <span id="resultAddedRisk" class="added-value"></span></p>
+            <p><span class="label">Risk Deviation:</span> <span id="resultDeviation" class="value"></span>% / <span id="resultAddedDeviation" class="added-value"></span>%</p>
             <h3>Reward Profile</h3>
-            <p><span class="reward-label">Reward (1:1.5):</span> $<span id="reward1_1_5" class="value"></span> / $<span id="rewardAdded1_1_5" class="added-value"></span></p>
-            <p><span class="reward-label">Reward (1:2):</span> $<span id="reward1_2" class="value"></span> / $<span id="rewardAdded1_2" class="added-value"></span></p>
-            <p><span class="reward-label">Reward (1:2.5):</span> $<span id="reward1_2_5" class="value"></span> / $<span id="rewardAdded1_2_5" class="added-value"></span></p>
-            <p><span class="reward-label">Reward (1:3):</span> $<span id="reward1_3" class="value"></span> / $<span id="rewardAdded1_3" class="added-value"></span></p>
+            <p><span class="label">Reward (1:1.5):</span> $<span id="reward1_1_5" class="value"></span> / $<span id="rewardAdded1_1_5" class="added-value"></span></p>
+            <p><span class="label">Reward (1:2):</span> $<span id="reward1_2" class="value"></span> / $<span id="rewardAdded1_2" class="added-value"></span></p>
+            <p><span class="label">Reward (1:2.5):</span> $<span id="reward1_2_5" class="value"></span> / $<span id="rewardAdded1_2_5" class="added-value"></span></p>
+            <p><span class="label">Reward (1:3):</span> $<span id="reward1_3" class="value"></span> / $<span id="rewardAdded1_3" class="added-value"></span></p>
         </div>
     </div>
     <script>
