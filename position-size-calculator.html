@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0 auto;
             padding: 4px;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            background: #ffffff;
         }
         .container {
             display: flex;
@@ -23,7 +23,7 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             padding: 9px;
-            width: 250px;
+            width: 300px;
         }
         .results-box {
             background: white;
@@ -63,9 +63,21 @@
         .calculate-btn:hover {
             background: linear-gradient(to right, #4c51bf, #667eea);
         }
+        .results-box h2 {
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .results-box h3 {
+            color: #2d3748;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 6px 0;
+        }
         .results-box p {
             color: #4a5568;
-            margin: 5px 0;
+            margin: 4px 0;
             font-size: 0.8rem;
         }
         .results-box .font-bold {
@@ -121,12 +133,15 @@
             <p class="footer-text">Copyright © 2025 hackeypete, All Rights Reserved</p>
         </div>
         <div id="results" class="results-box hidden">
+            <h2>Results</h2>
             <p><span class="font-medium">Symbol:</span> <span id="resultSymbol"></span></p>
             <p><span class="font-medium">Stop Loss:</span> <span id="resultStopLoss"></span> ticks</p>
             <p><span class="font-medium">Target Risk:</span> $<span id="resultTargetRisk"></span></p>
             <p><span class="font-medium">Contract Size:</span> <span id="resultContracts" class="font-bold"></span></p>
+            <h3>Risk Profile</h3>
             <p><span class="font-medium">Actual Risk:</span> $<span id="resultActualRisk"></span></p>
             <p><span class="font-medium">Risk Deviation:</span> <span id="resultDeviation"></span>%</p>
+            <h3>Reward Profile</h3>
             <p><span class="font-medium">Profit (1:1.5):</span> $<span id="profit1_1_5"></span></p>
             <p><span class="font-medium">Profit (1:2):</span> $<span id="profit1_2"></span></p>
             <p><span class="font-medium">Profit (1:2.5):</span> $<span id="profit1_2_5"></span></p>
