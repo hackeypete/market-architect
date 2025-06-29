@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Position Size Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 16px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        .calculator-box {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #2d3748;
+            font-size: 0.9rem;
+        }
+        .form-group select,
+        .form-group input {
+            border: 2px solid #e2e8f0;
+            border-radius: 5px;
+            padding: 6px;
+            width: 100%;
+            font-size: 0.9rem;
+            transition: border-color 0.3s;
+        }
+        .form-group select:focus,
+        .form-group input:focus {
+            border-color: #5a67d8;
+            outline: none;
+        }
+        .calculate-btn {
+            background: linear-gradient(to right, #5a67d8, #7f9cf5);
+            color: white;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-size: 0.9rem;
+        }
+        .calculate-btn:hover {
+            background: linear-gradient(to right, #4c51bf, #667eea);
+        }
+        .results-box {
+            background: #f7fafc;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 16px;
+        }
+        .results-box h2 {
+            color: #2d3748;
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+        .results-box p {
+            color: #4a5568;
+            margin: 6px 0;
+            font-size: 0.9rem;
+        }
+        .results-box .font-bold {
+            color: #2b6cb0;
+        }
+        .footer-text {
+            color: #718096;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- This code was built with Grok, created by xAI -->
+    <!-- Licensed under CC BY-NC-ND 4.0. Copyright (c) 2025 hackeypete. See README for license details. -->
+    <div class="calculator-box">
+        <h1 class="text-xl font-bold mb-5 text-center text-gray-800">Position Size Calculator</h1>
+        <form id="calcForm" class="space-y-4">
+            <div class="form-group">
+                <label for="symbol">Symbol</label>
+                <select id="symbol" class="mt-1 block w-full">
+                    <option value="MNQ">MNQ (Micro E-mini Nasdaq-100)</option>
+                    <option value="NQ">NQ (E-mini Nasdaq-100)</option>
+                    <option value="MES">MES (Micro E-mini S&P 500)</option>
+                    <option value="ES">ES (E-mini S&P 500)</option>
+                    <option value="MYM">MYM (Micro E-mini Dow)</option>
+                    <option value="YM">YM (E-mini Dow)</option>
+                    <option value="GC">GC (Gold)</option>
+                    <option value="MGC">MGC (Micro Gold)</option>
+                    <option value="SI">Silver (SI)</option>
+                    <option value="CL">CL (Crude Oil)</option>
+                    <option value="BTC">Bitcoin (BTC)</option>
+                    <option value="ETH">Ethereum (ETH)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="stopLoss">Stop Loss (Ticks)</label>
+                <input type="number" id="stopLoss" min="1" class="mt-1 block w-full" placeholder="e.g., 10">
+            </div>
+            <div class="form-group">
+                <label for="targetRisk">Target Risk ($)</label>
+                <input type="number" id="targetRisk" min="1" class="mt-1 block w-full" placeholder="e.g., 100">
+            </div>
+            <button type="submit" class="calculate-btn w-full">Calculate</button>
+        </form>
+        <div id="results" class="results-box hidden">
+            <h2 class="text-lg font-semibold mb-3">Results</h2>
+            <p><span class="font-medium">Symbol:</span> <span id="resultSymbol"></span></p>
+            <p><span class="font-medium">Stop Loss:</span> <span id="resultStopLoss"></span> ticks</p>
+            <p><span class="font-medium">Target Risk:</span> $<span id="resultTargetRisk"></span></p>
+            <p><span class="font-medium">Contract Size:</span> <span id="resultContracts" class="font-bold"></span></p>
+            <p><span class="font-medium">Actual Risk:</span> $<span id="resultActualRisk"></span></p>
+            <p><span class="font-medium">Risk Deviation:</span> <span id="resultDeviation"></span>%</p>
+            <h3 class="text-base font-medium mt-3">Profit for Risk-Reward Ratios</h3>
+            <ul class="list-disc pl-5">
+                <li>1:1.5: $<span id="profit1_1_5"></span></li>
+                <li>1:2: $<span id="profit1_2"></span></li>
+                <li>1:2.5: $<span id="profit1_2_5"></span></li>
+                <li>1:3: $<span id="profit1_3"></span></li>
+            </ul>
+        </div>
+        <p class="footer-text">Built with Grok, created by xAI</p>
+        <p class="footer-text">Licensed under CC BY-NC-ND 4.0</p>
+        <p class="footer-text">Copyright © 2025 hackeypete, All Rights Reserved</p>
+    </div>
+    <script>
+        // This code was built with Grok, created by xAI
+        // Licensed under CC BY-NC-ND 4.0. Copyright (c) 2025 hackeypete. See README for license details.
+        document.getElementById('calcForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const symbol = document.getElementById('symbol').value;
+            const stopLoss = parseFloat(document.getElementById('stopLoss').value);
+            const targetRisk = parseFloat(document.getElementById('targetRisk').value);
+
+            if (!stopLoss || !targetRisk || stopLoss <= 0 || targetRisk <= 0) {
+                alert('Please enter valid Stop Loss and Target Risk values.');
+                return;
+            }
+
+            const tickValues = {
+                'MNQ': 0.5,    // $0.50 per tick
+                'NQ': 5,       // $5 per tick
+                'MES': 1.25,   // $1.25 per tick
+                'ES': 12.5,    // $12.50 per tick
+                'MYM': 0.5,    // $0.50 per tick
+                'YM': 5,       // $5 per tick
+                'GC': 10,      // $10 per tick
+                'MGC': 1,      // $1 per tick
+                'SI': 25,      // $25 per tick
+                'CL': 10,      // $10 per tick (Crude Oil)
+                'BTC': 0.5,    // $0.50 per tick
+                'ETH': 0.25    // $0.25 per tick
+            };
+
+            const tickValue = tickValues[symbol];
+            const contracts = Math.floor(targetRisk / (stopLoss * tickValue));
+            const actualRisk = contracts * stopLoss * tickValue;
+            const deviation = targetRisk !== 0 ? ((actualRisk - targetRisk) / targetRisk * 100).toFixed(2) : 0;
+
+            document.getElementById('resultSymbol').textContent = symbol;
+            document.getElementById('resultStopLoss').textContent = stopLoss;
+            document.getElementById('resultTargetRisk').textContent = targetRisk.toFixed(2);
+            document.getElementById('resultContracts').textContent = contracts;
+            document.getElementById('resultActualRisk').textContent = actualRisk.toFixed(2);
+            document.getElementById('resultDeviation').textContent = deviation;
+            document.getElementById('profit1_1_5').textContent = (actualRisk * 1.5).toFixed(2);
+            document.getElementById('profit1_2').textContent = (actualRisk * 2).toFixed(2);
+            document.getElementById('profit1_2_5').textContent = (actualRisk * 2.5).toFixed(2);
+            document.getElementById('profit1_3').textContent = (actualRisk * 3).toFixed(2);
+
+            document.getElementById('results').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
