@@ -143,7 +143,7 @@
             <p class="footer-text">Licensed under CC BY-NC-ND 4.0</p>
             <p class="footer-text">Copyright © 2025 hackeypete, All Rights Reserved</p>
         </div>
-        <div id="results" class="results-box">
+        <div id="results" class="results-box hidden">
             <h2>Results</h2>
             <p><span class="label">Symbol:</span> <span id="resultSymbol" class="value"></span></p>
             <p><span class="label">Stop Loss:</span> <span id="resultStopLoss" class="value"></span> ticks</p>
@@ -162,31 +162,6 @@
     <script>
         // This code was built with Grok, created by xAI
         // Licensed under CC BY-NC-ND 4.0. Copyright (c) 2025 hackeypete. See README for license details.
-
-        // Function to clear results
-        function clearResults() {
-            document.getElementById('resultSymbol').textContent = '';
-            document.getElementById('resultStopLoss').textContent = '';
-            document.getElementById('resultTargetRisk').textContent = '';
-            document.getElementById('resultContracts').textContent = '';
-            document.getElementById('resultAddedContracts').textContent = '';
-            document.getElementById('resultActualRisk').textContent = '';
-            document.getElementById('resultAddedRisk').textContent = '';
-            document.getElementById('resultDeviation').textContent = '';
-            document.getElementById('resultAddedDeviation').textContent = '';
-            document.getElementById('reward1_1_5').textContent = '';
-            document.getElementById('rewardAdded1_1_5').textContent = '';
-            document.getElementById('reward1_2').textContent = '';
-            document.getElementById('rewardAdded1_2').textContent = '';
-            document.getElementById('reward1_2_5').textContent = '';
-            document.getElementById('rewardAdded1_2_5').textContent = '';
-            document.getElementById('reward1_3').textContent = '';
-            document.getElementById('rewardAdded1_3').textContent = '';
-        }
-
-        // Clear results on page load
-        clearResults();
-
         document.getElementById('calcForm').addEventListener('submit', function(event) {
             event.preventDefault();
             const symbol = document.getElementById('symbol').value;
@@ -195,7 +170,6 @@
 
             if (!stopLoss || !targetRisk || stopLoss <= 0 || targetRisk <= 0) {
                 alert('Please enter valid Stop Loss and Target Risk values.');
-                clearResults();
                 return;
             }
 
@@ -235,12 +209,12 @@
             document.getElementById('rewardAdded1_1_5').textContent = '$' + (addedRisk * 1.5).toFixed(2);
             document.getElementById('reward1_2').textContent = (actualRisk * 2).toFixed(2);
             document.getElementById('rewardAdded1_2').textContent = '$' + (addedRisk * 2).toFixed(2);
-            document.getElementById('reward1_2_5').textContent = (actualRisk * 2
-
-.5).toFixed(2);
+            document.getElementById('reward1_2_5').textContent = (actualRisk * 2.5).toFixed(2);
             document.getElementById('rewardAdded1_2_5').textContent = '$' + (addedRisk * 2.5).toFixed(2);
             document.getElementById('reward1_3').textContent = (actualRisk * 3).toFixed(2);
             document.getElementById('rewardAdded1_3').textContent = '$' + (addedRisk * 3).toFixed(2);
+
+            document.getElementById('results').classList.remove('hidden');
         });
     </script>
 </body>
